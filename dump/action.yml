@@ -1,0 +1,30 @@
+name: abi-dumper
+description: Run https://github.com/lvc/abi-dumper
+
+inputs:
+  library:
+    description: The library file
+    required: true
+  version:
+    description: The version of the library
+    required: true
+  output:
+    description: The ABI dump file location
+    default: ABI.dump
+  args:
+    description: Extra arguments to abi-dumper
+
+outputs:
+  dump:
+    description: The ABI dump file
+
+runs:
+  using: docker
+  image: Dockerfile
+  env:
+    OUTPUT_FILE: ${{inputs.output}}
+  args:
+    - '${{inputs.library}}'
+    - -vnum '${{inputs.version}}'
+    - -o '${{inputs.output}}'
+    - ${{inputs.args}}
