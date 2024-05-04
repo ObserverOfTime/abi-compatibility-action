@@ -1,0 +1,44 @@
+name: abi-compliance-checker
+description: Run https://github.com/lvc/abi-compliance-checker
+
+inputs:
+  library:
+    description: The library name
+    default: ${{github.event.repository.name}}
+    required: true
+  old-dump:
+    description: The old dump file
+    required: true
+  new-dump:
+    description: The new dump file
+    required: true
+  old-version:
+    description: The old version
+    required: true
+  new-version:
+    description: The new version
+    required: true
+  output:
+    description: The report file location
+    default: abicc-report.html
+  args:
+    description: Extra arguments to abi-compliance-checker
+
+outputs:
+  report:
+    description: The contents of the generated report
+
+runs:
+  using: docker
+  image: Dockerfile
+  env:
+    OUTPUT_FILE: ${{inputs.output}}
+  args:
+    - -binary
+    - -lib '${{inputs.library}}'
+    - -old '${{inputs.old-dump}}'
+    - -new '${{inputs.new-dump}}'
+    - -v1 '${{inputs.old-version}}'
+    - -v2 '${{inputs.new-version}}'
+    - -bin-report-path '${{inputs.output}}'
+    - ${{inputs.args}}
