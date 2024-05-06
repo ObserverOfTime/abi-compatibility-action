@@ -35,10 +35,10 @@ runs:
     OUTPUT_FILE: ${{inputs.output}}
   args:
     - -binary
-    - -lib '${{inputs.library}}'
-    - -old '${{inputs.old-dump}}'
-    - -new '${{inputs.new-dump}}'
-    - -v1 '${{inputs.old-version}}'
-    - -v2 '${{inputs.new-version}}'
-    - -bin-report-path '${{inputs.output}}'
+    - -lib ${{inputs.library}}
+    - -old ${{inputs.old-dump}}
+    - -new ${{inputs.new-dump}}
+    - -v1 ${{inputs.old-version}}
+    - -v2 ${{inputs.new-version}}
+    - -bin-report-path ${{inputs.output}}
     - ${{inputs.args}}

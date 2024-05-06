@@ -24,7 +24,7 @@ runs:
   env:
     OUTPUT_FILE: ${{inputs.output}}
   args:
-    - '${{inputs.library}}'
-    - -vnum '${{inputs.version}}'
-    - -o '${{inputs.output}}'
+    - ${{inputs.library}}
+    - -vnum ${{inputs.version}}
+    - -o ${{inputs.output}}
     - ${{inputs.args}}
