@@ -20,7 +20,7 @@ on:
     paths:
       - lib/src/**
       - lib/include/**
-  pull_request:
+  pull_request_target:
     branches: [master]
     paths:
       - lib/src/**
@@ -101,8 +101,10 @@ jobs:
   comment-pr:
     name: Comment on PR
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name != 'push'
     needs: [check]
+    permissions:
+      pull-requests: write
     steps:
       - name: Find comment
         id: find-comment
@@ -122,7 +124,7 @@ jobs:
   comment-push:
     name: Comment on commit
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'push'
     needs: [check]
     steps:
       - name: Create commit comment
